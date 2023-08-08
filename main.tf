@@ -17,7 +17,10 @@ resource "null_resource" "execute_powershell" {
   ]
 }
 
-output "random_value_output" {
-  value = file("random_output.txt")
+data "local_file" "random_output_file" {
+  filename = "random_output.txt"
 }
 
+output "random_value_output" {
+  value = data.local_file.random_output_file.content
+}
