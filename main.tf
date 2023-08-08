@@ -9,8 +9,7 @@ resource "null_resource" "execute_powershell" {
       $randomValue = Get-Random -Minimum 100 -Maximum 1000
       $randomValue | Out-File random_output.txt
     EOT
-    interpreter = ["PowerShell", "-Command"]
-    working_dir = path.module
+    interpreter = ["/usr/bin/pwsh", "-Command"]
   }
 
   depends_on = [
