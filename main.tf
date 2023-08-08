@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "example" {
-  name     = "example-resource-group"
+  name     = var.resource_group_name
   location = "East US"
 }
 
@@ -21,3 +21,4 @@ resource "null_resource" "execute_powershell" {
 output "random_value_output" {
   value = file("random_output.txt")
 }
+
