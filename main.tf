@@ -10,6 +10,7 @@ resource "null_resource" "execute_powershell" {
       $randomValue | Out-File random_output.txt
     EOT
     interpreter = ["/usr/bin/pwsh", "-Command"]
+    working_dir = path.module
   }
 
   depends_on = [
