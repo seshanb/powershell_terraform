@@ -21,14 +21,14 @@ resource "null_resource" "run_python_script" {
   }
 
   provisioner "local-exec" {
-    command = "python ${path.module}/my_script.py"
+    command = "python my_script.py"
   }
 }
 
 data "external" "python_output" {
   depends_on = [null_resource.run_python_script]
 
-  program = ["python", "${path.module}/my_script.py"]
+  program = ["python", "my_script.py"]
 }
 
 output "python_result" {
