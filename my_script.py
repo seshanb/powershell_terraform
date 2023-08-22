@@ -1,3 +1,3 @@
 # my_script.py
-result = 42
+result = {"name":"42"}
 print(result)
