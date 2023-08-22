@@ -1,7 +1,3 @@
-resource "azurerm_resource_group" "example" {
-  name     = var.resource_group_name
-  location = "East US"
-}
 
 resource "null_resource" "execute_powershell" {
   provisioner "local-exec" {
@@ -13,9 +9,6 @@ resource "null_resource" "execute_powershell" {
     working_dir = path.module
   }
 
-  depends_on = [
-    azurerm_resource_group.example,
-  ]
 }
 
 output "random_value_output" {
