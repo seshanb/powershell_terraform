@@ -1,32 +1,3 @@
-
-resource "null_resource" "execute_powershell" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      $randomValue = Get-Random -Minimum 100 -Maximum 1000
-      $randomValue | Out-File random_output.txt
-    EOT
-    interpreter = ["pwsh", "-Command"]
-    working_dir = path.module
-  }
-
-}
-
-output "random_value_output" {
-  value = file("random_output.txt")
-}
-
-data "local_file" "tfstate" {
-  filename = "${path.module}/terraform.tfstate"
-}
-
-data "terraform_remote_state" "stack" {
-  backend = "local"
-
-  config = {
-    path = data.local_file.tfstate.content != "" ? "${path.module}/terraform.tfstate" : "${path.module}/.terraform/terraform.tfstate"
-  }
-}
-
 resource "null_resource" "run_python_script" {
   triggers = {
     always_run = timestamp()
@@ -37,12 +8,21 @@ resource "null_resource" "run_python_script" {
   }
 }
 
-data "external" "python_output" {
-  depends_on = [null_resource.run_python_script]
+resource "null_resource" "run_powershell_script" {
+  triggers = {
+    always_run = timestamp()
+  }
 
-  program = ["python", "my_script.py"]
+  provisioner "local-exec" {
+    command     = "pwsh -File my_script.ps1"
+    working_dir = path.module
+  }
 }
 
 output "python_result" {
-  value = data.external.python_output.result
+  value = "42"  # Replace with the actual output of your Python script
+}
+
+output "powershell_result" {
+  value = null_resource.run_powershell_script.triggers.always_run  # Replace with the actual output of your PowerShell script
 }
