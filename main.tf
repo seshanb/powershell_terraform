@@ -20,7 +20,7 @@ resource "null_resource" "run_powershell_script" {
 }
 
 output "python_result" {
-  value = "42"  # Replace with the actual output of your Python script
+  value = null_resource.run_python_script.triggers.always_run  # Replace with the actual output of your Python script
 }
 
 output "powershell_result" {
