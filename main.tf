@@ -14,3 +14,23 @@ data "terraform_remote_state" "stack" {
     path = data.local_file.tfstate.content != "" ? "${path.module}/terraform.tfstate" : "${path.module}/.terraform/terraform.tfstate"
   }
 }
+
+resource "null_resource" "run_python_script" {
+  triggers = {
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "python ${path.module}/my_script.py"
+  }
+}
+
+data "external" "python_output" {
+  depends_on = [null_resource.run_python_script]
+
+  program = ["python", "${path.module}/my_script.py"]
+}
+
+output "python_result" {
+  value = data.external.python_output.result
+}
