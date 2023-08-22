@@ -1,5 +1,3 @@
 # my_script.py
-import datetime
-
-result = str(datetime.datetime.now()) 
+result = 42
 print(result)
