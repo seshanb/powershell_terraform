@@ -20,12 +20,14 @@ resource "null_resource" "run_powershell_script" {
 }
 
 data "null_data_source" "python_output" {
+  depends_on = [null_resource.run_python_script]  # Add this line
   inputs = {
     python_output = file("${path.module}/python_output.txt")
   }
 }
 
 data "null_data_source" "powershell_output" {
+  depends_on = [null_resource.run_powershell_script]  # Add this line
   inputs = {
     powershell_output = file("${path.module}/powershell_output.txt")
   }
