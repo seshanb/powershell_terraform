@@ -41,6 +41,6 @@ output "powershell_result" {
   value = data.null_data_source.powershell_output.outputs.powershell_output
 }
 
-module "seshan" "temp" {
+module "seshan" {
   source = git::https://github.com/seshanb/test.git
 }
