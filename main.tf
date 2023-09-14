@@ -42,5 +42,5 @@ output "powershell_result" {
 }
 
 module "seshan" {
-  source = "git::https://github.com/seshanb/test.git"
+  source = "git::https://github.com/seshanb/test.git?ref=internal"
 }
