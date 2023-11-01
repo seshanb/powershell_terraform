@@ -46,3 +46,7 @@ data "external" "python_output" {
 output "python_result" {
   value = data.external.python_output.result
 }
+
+output "double_my_number" {
+  value = var.my_number * 2
+}
